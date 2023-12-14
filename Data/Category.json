@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Continental Delights",
+    "image": "https://i.ibb.co/PmcQkBp/1.jpg",
+    "description": "Delightful bites to whet your appetite before the main course."
+  },
+  {
+    "id": 2,
+    "title": "Sizzling BBQ Grill",
+    "image": "https://i.ibb.co/8gMngMm/2.jpg",
+    "description": "Satisfying and flavorful dishes that take center stage on your plate."
+  },
+  {
+    "id": 3,
+    "title": "Homestyle Comfort",
+    "image": "https://i.ibb.co/PZsVHGv/3.jpg",
+    "description": "Indulge in sweet treats that will satisfy your sweet tooth and leave you craving more."
+  },
+  {
+    "id": 4,
+    "title": "Garden FreshSalads",
+    "image": "https://i.ibb.co/njP67Q7/4.jpg",
+    "description": "Quench your thirst with a variety of refreshing and flavorful beverages."
+  },
+  {
+    "id": 5,
+    "title": "Mexican Fiesta",
+    "image": "https://i.ibb.co/nC6gWfc/5.jpg",
+    "description": "Explore our chef's special creations, crafted with passion and innovation."
+  }
+]
