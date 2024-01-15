@@ -25,11 +25,34 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
+    const usersCollection = client.db("byteCafeDb").collection("users");
     const itemsCollection = client.db("byteCafeDb").collection("items");
     const menuCollection = client.db("byteCafeDb").collection("menu");
     const categoriesCollection = client.db("byteCafeDb").collection("category");
     const chefCollection = client.db("byteCafeDb").collection("chef");
     const blogCollection = client.db("byteCafeDb").collection("blog");
+    const reviewCollection = client.db("byteCafeDb").collection("review");
+
+    const cartCollection = client.db("byteCafeDb").collection("carts");
+
+    //user
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      const query = { email: user.email };
+      const existingUser = await usersCollection.findOne(query);
+      if (existingUser) {
+        return res.send({ message: "User Already Exists" });
+      }
+      const result = await usersCollection.insertOne(user);
+      res.send(result);
+    });
+
+    //user get
+
+    app.get("/users", async (req, res) => {
+      const result = await usersCollection.find().toArray();
+      res.send(result);
+    });
 
     //send data from client site to server to mongo
     app.post("/items", async (req, res) => {
@@ -88,6 +111,13 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    // all review
+
+    app.get("/review", async (req, res) => {
+      const cursor = reviewCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
 
     //get all categories data
     app.get("/categories", async (req, res) => {
@@ -132,6 +162,24 @@ async function run() {
       res.send(result);
     });
 
+    //cart collection
+
+    app.post("/carts", async (req, res) => {
+      const item = req.body;
+      const result = await cartCollection.insertOne(item);
+      res.send(result);
+    });
+
+    app.get("/carts", async (req, res) => {
+      const email = req.query.email;
+      if (!email) {
+        res.send([]);
+      }
+      const query = { email: email };
+      const result = await cartCollection.find(query).toArray();
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
@@ -145,7 +193,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-  res.send("server is running");
+  res.send("Byte cafe is running...");
 });
 
 app.listen(port, () => {
